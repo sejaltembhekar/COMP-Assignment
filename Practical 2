@@ -1,0 +1,45 @@
+section .data
+m2 db 10, 10, 'Enter the string:'
+m2_len equ $-m2
+n3 db'lenth of the string:
+m3_len equ $-m3
+section .bss
+srcstr resb 20
+count resb 1
+disbuff resb 2
+； fixed name
+%macro disp 2
+MOV RAX.1
+MOV RDI, 1
+MOV RSI, %1
+MOV RDX,%2
+syscall
+%endmacro
+%macro acceptstr 1
+MOV RAX, 0
+MOV RDI, 0
+MOV RSI, %1
+syscall
+%endmacro
+section .text
+Blobal_start
+start：
+disp m2, m2 len acceptstr srcstr dec al
+MOV [count], al disp m3, m3_len MOV bl, [count]call display MOV RAX, 60
+syscall
+display:
+MOV cl, 2
+MOV RDI, disbuff
+d1:
+ROL bl, 4
+MOV al, bl
+and al, oFh
+cmp al, 9
+JBE d2
+dec cl
+JNZ d1
+disp disbuff, 2
+RET
+add al, 7
+d2:
+add al, 30h MOV [RDI], al inc RDI
