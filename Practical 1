@@ -1,0 +1,54 @@
+iwrite x86/64 ALP
+section .data
+msg1 db 10, 13, 'enter 564 bit number'
+len1 equ $-msg1
+msg2 db 10, 13, 'enter 64 bit numbers'
+1en2 equ $-msg2
+section .bss
+array resd 200
+counter resb 1
+section .text
+global_start
+start：
+;display
+MOV RAx, 1
+MOV RDi, 1
+MOV RSi, msg1
+MOV RDX, len1
+syscal1
+;accept
+Mov byte[counter], 05
+MOV rbx, 00
+10op1：
+MOV rax, 0
+MOV rdi, 0
+MOV rsi, array
+add rsi, rbx
+MOV rdx, rbx
+MOV rdx, 17
+syscal1
+add rbx, 17
+dec byte[counter]
+JNZ 1oop1
+;display
+MOV RAx, 1
+MOV RDi, 1
+MOV RSi, msg2
+MOV Rdx, len2
+syscal1
+MOV byte[counter],05
+MOV rbx, 00
+10op2：
+MOV rax, 1
+MOV rdi, 1
+MOV rsi, array
+add rsi, rbx
+MOV rdx, 17
+JNZ l0op2
+;exist system call
+MOV RAx, 60
+MOV rdi, 0
+syscal1
+syscal1
+add rbx, 17
+dec byte[counter]
