@@ -1,0 +1,64 @@
+TITLE: AXB(/6A assemblu language program to count number positive and
+Áлe ue woд, sлeqwnu eлдебอu
+section .data
+msg1 db 10, 13 count of positive nos '
+len equ $-msg1
+msg2 db 10, 13, 'count of negative nos
+len2 equ $-msg2
+array db 10, 12, -21, 12, -19, 34, 41
+%macro print 2
+mov rax, 1
+mov rdi, 1
+mov rsi, %1
+mov rdx, %2
+syscall
+%endmacro
+section .bss
+count resb2
+pcount
+ncount
+resb 2
+resb 2
+totalcount resb 2
+section .text
+global _start
+_start:
+mov byte [count), 07
+mov byte [pcount,00
+00'junoou] ap/g Aow
+mov rsi, array
+mov al, [rsi]
+test al,al
+Beu sf
+inc byte [pcount
+jmp down
+:dn
+:Beu
+inc byte [ncount)
+down:
+inc rsi
+dec byte [count)
+jnz up
+print msg1, len1
+mov bh, (pcount]
+call disp
+print msg2, en2mov bh, [ncount)call disp
+mov rax, 60
+xor rdi,rdi
+syscall
+disp:
+mov byte [count], 2
+loop1:
+rol bh.04
+mov al.bh
+and al, OFh
+cmp al, 09
+jbei1
+add al, 07
+i1：
+add al, 30h
+mov ftotalcountl, al
+print totalcount, 01
+dec byte fcount]
+inz loop1
+Ret
