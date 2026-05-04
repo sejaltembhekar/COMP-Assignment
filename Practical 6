@@ -1,0 +1,98 @@
+iName: Tembhekar Sejal Popat
+;Roll No: C02153
+iVrite a switch case driven X86/64 ALP to perform 64 bit hexdecimal aritematic operationsl+, 
+, "./) using sitable macros
+%macro scall 4
+mov rax, %1mov rdl, %2
+mov rsi, %3
+mov rdx, %4
+syscall
+%endmacro
+section .data
+arr dg 3h, 2h
+n equ 2
+menu db 10, 13," ***MENU****"
+db 10, 13, "1.Addition"
+db 10.13. "2, Subtraction'db 10, 13, "3.Multiplication'db 10, 13, "4.Division"
+db 10, 13, "5.Exit'
+db 10, 13, "Enter choice: "menu_len equ S-menu m1 db 10, 13, "Addition: "l1 equ $-m1
+m2 db 10, 13, "Subtraction: "
+12 equ $-m2
+m3 db 10, 13, "Multiplication:"
+13 equ $-m3
+m4 db 10, 13, "Division: "
+14 equ $-m4
+section .bss
+answer resb 16
+choice resb 2
+section .text
+global _start
+start:
+:dn
+scall 1, 1, menu, menu_ len
+scall 0, 0, choice, 2cmp byte[choice], '1'je case1
+cmp byte[choice]), '2'
+je case2
+cmp byte[choice), '3'
+je case3
+cmp byte[choice), '4'
+je case4
+cmp byte[choice), '5'
+je exit
+jmp up
+case1：
+scall 1, 1, m1, 11
+call addition
+jmp up
+case2:
+scall 1, 1, m2, 12call subtraction jmp up
+case3:
+scall 1, 1, m3, 13
+call multiplication
+jmp up
+case4:
+scall 1, 1, m4, 14
+call division
+jmp up
+exit:
+mov rax, 60
+xor rdi, rdi
+syscall
+addition:
+mov rax, arr]
+add rax, [arr+8]
+call display
+ret
+subtraction:
+mov rax, arr]
+sub rax, [arr+8]
+call display
+
+ret
+multiplication:
+mov rax, larr]
+mov rbx, [arr+8]
+mul rbx
+call display
+ret
+division:
+mov rax, [arr]mov rbx, [arr+8]xor rdx, rdx div rbx
+call display
+ret
+display:
+mov rsi, answer+15
+mov rcx, 16
+next:
+xor rdx, rdx
+mov rbx, 16
+div rbx
+cmp dl, 9
+jbe add30
+add dl, 7
+add30:
+add dl, 30h
+mov [rsil, dl
+dec rsi
+loop next
+scall 1, 1, answer, 16
+ret
